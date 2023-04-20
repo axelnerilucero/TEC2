@@ -1,6 +1,7 @@
 package com.example.ico.netflix.controladores;
 
 import com.example.ico.netflix.modelos.Pelicula;
+import com.example.ico.netflix.modelos.Reporte;
 import com.example.ico.netflix.modelos.Tienda;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -20,28 +21,13 @@ public class tiendaController {
 
     @GetMapping("/stock")
     public ResponseEntity<ArrayList<List<Pelicula>>> getStock(){
-        System.out.println(tienda.getRentadas());
         return new ResponseEntity<>(tienda.getEstante(), HttpStatus.OK);
     }
 
     @GetMapping("/stock/{id}")
     public ResponseEntity<Pelicula> regresarPeliById(@PathVariable(required = true, name = "id") int id){
-        Pelicula peli = null;
-        for (List<Pelicula> f : tienda.getEstante()) {
-            for (Pelicula pelicula : f) {
-                if(pelicula.getId() == id){
-                    peli = pelicula;
-                    break;
-                }
-            }
-        }
-        if (peli != null){
-            return new ResponseEntity<>(peli, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatusCode.valueOf(404));
-        }
+        return new ResponseEntity<>(tienda.buscar(id), HttpStatus.OK);
     }
-
     @PostMapping("/rentar/{id}")
     public ResponseEntity<Boolean> rentar(@PathVariable(required = true, name = "id") int id){
         return new ResponseEntity<>(tienda.comprar(id), HttpStatus.OK);
@@ -53,8 +39,8 @@ public class tiendaController {
     }
 
     @GetMapping("/reporte/rentas")
-    public ResponseEntity<ArrayList<Pelicula>> getRentadas(){
-        return new ResponseEntity<>(tienda.getRentadas(), HttpStatus.OK);
+    public ResponseEntity<ArrayList<Reporte>> getRentadas(){
+        return new ResponseEntity<>(tienda.getReportes(), HttpStatus.OK);
     }
 
     @PatchMapping("cambiar")

@@ -1,20 +1,25 @@
 package com.example.ico.netflix.modelos;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Tienda {
-    ArrayList<Pelicula> rentadas;
+    ArrayList<Reporte> reportes;
     ArrayList<Pelicula> fila;
     ArrayList<List<Pelicula>> estante;
     int pago;
 
-    public ArrayList<Pelicula> getRentadas() {
-        return rentadas;
+    public ArrayList<Reporte> getReportes() {
+        return reportes;
     }
 
-    public void setRentadas(ArrayList<Pelicula> rentadas) {
-        this.rentadas = rentadas;
+    public void setReportes(ArrayList<Reporte> reportes) {
+        this.reportes = reportes;
     }
 
     public ArrayList<Pelicula> getFila() {
@@ -44,7 +49,7 @@ public class Tienda {
     public Tienda() {
         fila = new ArrayList<>();
         estante = new ArrayList<List<Pelicula>>();
-        rentadas = new ArrayList<>();
+        reportes = new ArrayList<>();
         pago = 0;
         fila.add(new Pelicula(1, "Avatar", "162 minutos", 2009, 20, 11));
         fila.add(new Pelicula(2, "Titanic", "194 minutos", 1997, 20, 21));
@@ -84,7 +89,7 @@ public class Tienda {
             for (Pelicula pelicula : f) {
                 if (pelicula.getId() == id) {
                     peli = pelicula;
-                    rentadas.add(peli);
+                    reportes.add(new Reporte(new Date(), peli, "Rentar"));
                     pago = pago + 20;
                     break;
                 }
@@ -103,7 +108,7 @@ public class Tienda {
             for (Pelicula pelicula : f) {
                 if (pelicula.getId() == id) {
                     peli = pelicula;
-                    rentadas.remove(peli);
+                    reportes.add(new Reporte(new Date(), peli, "Regresar"));;
                     break;
                 }
             }
@@ -130,5 +135,21 @@ public class Tienda {
             }
         }
         return lp;
+    }
+
+    public Pelicula buscar(int id){
+        Pelicula peli = null;
+        for (List<Pelicula> f : estante) {
+            for (int i = 0; i < f.size(); i++) {
+                if (f.get(i).getId() == id) {
+                    peli = f.get(i);
+                    break;
+                }
+            }
+            if (peli != null) {
+                return peli;
+            }
+        }
+        return peli;
     }
 }
