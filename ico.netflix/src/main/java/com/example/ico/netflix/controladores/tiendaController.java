@@ -54,8 +54,15 @@ public class tiendaController {
     }
 
 
-    /*
-    @PatchMapping("/cambiar")
-    public ResponseEntity<>
-     */
+
+    @PostMapping("/rentar/{ren}/{col}")
+    public ResponseEntity<?> renRC(@PathVariable(required = true, name = "ren") int re, @PathVariable(required = true, name = "col") int co){
+        return new ResponseEntity<>(tienda.rentarRC(re, co), HttpStatus.OK);
+    }
+
+    @PostMapping("/regresar/{ren}/{col}")
+    public ResponseEntity<?> regRC(@PathVariable(required = true, name = "ren") int re, @PathVariable(required = true, name = "col") int co){
+        return new ResponseEntity<>(tienda.regresarRC(re, co), HttpStatus.OK);
+    }
+
 }

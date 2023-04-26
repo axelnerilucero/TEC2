@@ -14,6 +14,25 @@ public class Tienda {
     ArrayList<List<Pelicula>> estante;
     int pago;
 
+    int ren;
+    int col;
+
+    public int getRen() {
+        return ren;
+    }
+
+    public void setRen(int ren) {
+        this.ren = ren;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
     public ArrayList<Reporte> getReportes() {
         return reportes;
     }
@@ -89,7 +108,7 @@ public class Tienda {
             for (Pelicula pelicula : f) {
                 if (pelicula.getId() == id) {
                     peli = pelicula;
-                    reportes.add(new Reporte(new Date(), peli, "Rentar"));
+                    reportes.add(new Reporte(new Date(), peli, "Rento por ID"));
                     pago = pago + 20;
                     break;
                 }
@@ -108,7 +127,7 @@ public class Tienda {
             for (Pelicula pelicula : f) {
                 if (pelicula.getId() == id) {
                     peli = pelicula;
-                    reportes.add(new Reporte(new Date(), peli, "Regresar"));;
+                    reportes.add(new Reporte(new Date(), peli, "Regreso por ID"));;
                     break;
                 }
             }
@@ -151,5 +170,21 @@ public class Tienda {
             }
         }
         return peli;
+    }
+
+    public boolean rentarRC(int re, int co){
+        Pelicula peli = null;
+        peli = estante.get(re).get(co);
+        reportes.add(new Reporte(new Date(), peli, "Rento por renglon y columna"));
+        pago = pago + 20;
+        return peli.vender();
+    }
+
+    public boolean regresarRC(int re, int co){
+        Pelicula peli = null;
+        peli = estante.get(re).get(co);
+        reportes.add(new Reporte(new Date(), peli, "Regreso por renglon y columna"));
+        pago = pago + 20;
+        return peli.regresar();
     }
 }
