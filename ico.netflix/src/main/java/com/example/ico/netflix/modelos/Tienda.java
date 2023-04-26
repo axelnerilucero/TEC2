@@ -184,7 +184,6 @@ public class Tienda {
         Pelicula peli = null;
         peli = estante.get(re).get(co);
         reportes.add(new Reporte(new Date(), peli, "Regreso por renglon y columna"));
-        pago = pago + 20;
         return peli.regresar();
     }
 }
