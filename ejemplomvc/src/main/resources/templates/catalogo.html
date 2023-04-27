@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="layout :: navbar"></nav>
+<div class="row">
+    <div class="col-md-3" th:each="auto : ${autos}">
+        <div class="card" style="width: 17.2rem;">
+            <img class="card-img-top" th:src="${auto.urlImagen}" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${auto.marca}"></h5>
+                <p class="card-text" th:text="${auto.submarca} + ' ' + ${auto.modelo}"></p>
+                <p class="card-text" th:text="${auto.descripcion}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
